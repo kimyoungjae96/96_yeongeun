@@ -701,20 +701,21 @@
 
       @media (max-width: 768px) {
         header {
-          padding: 20px 24px;
+          padding: 16px 20px;
+          justify-content: space-between;
         }
 
         .logo {
-          left: 24px;
+          position: static;
+          font-size: 16px;
         }
 
         nav {
-          gap: 20px;
+          gap: 16px;
         }
 
-        .logo,
         nav a {
-          font-size: 20px;
+          font-size: 14px;
         }
 
         section {
@@ -796,8 +797,26 @@
       }
 
       @media (max-width: 480px) {
+        header {
+          padding: 12px 16px;
+        }
+
+        .logo {
+          font-size: 14px;
+          letter-spacing: 0.05em;
+        }
+
+        nav {
+          gap: 12px;
+        }
+
+        nav a {
+          font-size: 12px;
+          letter-spacing: 0.05em;
+        }
+
         .hero {
-          padding: 80px 20px 30px;
+          padding: 70px 20px 30px;
           gap: 20px;
         }
 
@@ -859,6 +878,77 @@
 
         .work-item.small-img img {
           padding: 10px;
+        }
+
+        /* 모바일 PDF 대응 */
+        .pdf-container {
+          height: 50vh !important;
+          min-height: 400px;
+        }
+
+        .pdf-container embed {
+          min-height: 400px;
+        }
+
+        .modal-content {
+          padding: 60px 16px !important;
+        }
+
+        .modal-header {
+          margin-bottom: 20px !important;
+        }
+
+        .modal-title {
+          font-size: 20px !important;
+        }
+
+        .modal-category {
+          font-size: 10px !important;
+        }
+
+        #me {
+          padding: 60px 16px !important;
+        }
+
+        .section-header {
+          margin-bottom: 30px;
+        }
+      }
+
+      /* PDF 모바일 fallback 메시지 */
+      .pdf-mobile-notice {
+        display: none;
+        text-align: center;
+        padding: 40px 20px;
+        background: #1a1a1a;
+        border-radius: 8px;
+        margin-top: 20px;
+      }
+
+      .pdf-mobile-notice p {
+        color: #888;
+        margin-bottom: 20px;
+        font-size: 14px;
+      }
+
+      .pdf-mobile-notice a {
+        display: inline-block;
+        padding: 12px 24px;
+        background: #2952a3;
+        color: #fff;
+        text-decoration: none;
+        border-radius: 6px;
+        font-size: 14px;
+        transition: background 0.3s ease;
+      }
+
+      .pdf-mobile-notice a:hover {
+        background: #1e3d7a;
+      }
+
+      @media (max-width: 768px) {
+        .pdf-mobile-notice {
+          display: block;
         }
       }
     </style>
@@ -1393,8 +1483,12 @@
           <span class="modal-category">Open Project · Planning</span>
           <h2 class="modal-title">GX 프로그램 오픈 프로젝트</h2>
         </div>
-        <div style="width: 100%; height: calc(100vh - 200px); max-width: 1200px; margin: 0 auto;">
+        <div class="pdf-container" style="width: 100%; height: calc(100vh - 200px); max-width: 1200px; margin: 0 auto;">
           <embed src="open-project-1.pdf" type="application/pdf" width="100%" height="100%" style="border-radius: 8px" />
+        </div>
+        <div class="pdf-mobile-notice">
+          <p>PDF를 보려면 아래 버튼을 눌러주세요</p>
+          <a href="open-project-1.pdf" target="_blank">PDF 열기</a>
         </div>
       </div>
     </div>
@@ -1407,8 +1501,12 @@
           <span class="modal-category">Digital Marketing · Strategy</span>
           <h2 class="modal-title">디지털 마케팅 사례 및 활용방법</h2>
         </div>
-        <div style="width: 100%; height: calc(100vh - 200px); max-width: 1200px; margin: 0 auto;">
+        <div class="pdf-container" style="width: 100%; height: calc(100vh - 200px); max-width: 1200px; margin: 0 auto;">
           <embed src="디지털마케팅-사례-및-활용방법.pdf" type="application/pdf" width="100%" height="100%" style="border-radius: 8px" />
+        </div>
+        <div class="pdf-mobile-notice">
+          <p>PDF를 보려면 아래 버튼을 눌러주세요</p>
+          <a href="디지털마케팅-사례-및-활용방법.pdf" target="_blank">PDF 열기</a>
         </div>
       </div>
     </div>
@@ -1421,8 +1519,12 @@
           <span class="modal-category">School Event · Project Management</span>
           <h2 class="modal-title">현대고등학교 국토순례단</h2>
         </div>
-        <div style="width: 100%; height: calc(100vh - 200px); max-width: 1200px; margin: 0 auto;">
+        <div class="pdf-container" style="width: 100%; height: calc(100vh - 200px); max-width: 1200px; margin: 0 auto;">
           <embed src="현대고등학교_국토순례단.pdf" type="application/pdf" width="100%" height="100%" style="border-radius: 8px" />
+        </div>
+        <div class="pdf-mobile-notice">
+          <p>PDF를 보려면 아래 버튼을 눌러주세요</p>
+          <a href="현대고등학교_국토순례단.pdf" target="_blank">PDF 열기</a>
         </div>
       </div>
     </div>
@@ -1435,8 +1537,12 @@
           <span class="modal-category">LMS & Tools · Education</span>
           <h2 class="modal-title">엑셀 및 LMS 활용</h2>
         </div>
-        <div style="width: 100%; height: calc(100vh - 200px); max-width: 1200px; margin: 0 auto;">
+        <div class="pdf-container" style="width: 100%; height: calc(100vh - 200px); max-width: 1200px; margin: 0 auto;">
           <embed src="엑셀_및_LMS_활용.pdf" type="application/pdf" width="100%" height="100%" style="border-radius: 8px" />
+        </div>
+        <div class="pdf-mobile-notice">
+          <p>PDF를 보려면 아래 버튼을 눌러주세요</p>
+          <a href="엑셀_및_LMS_활용.pdf" target="_blank">PDF 열기</a>
         </div>
       </div>
     </div>
@@ -1452,21 +1558,12 @@
           <span class="modal-category">Event Planning · Community</span>
           <h2 class="modal-title">청파 가는 길</h2>
         </div>
-        <div
-          style="
-            width: 100%;
-            height: calc(100vh - 200px);
-            max-width: 1200px;
-            margin: 0 auto;
-          "
-        >
-          <embed
-            src="청파_포트폴리오.pdf"
-            type="application/pdf"
-            width="100%"
-            height="100%"
-            style="border-radius: 8px"
-          />
+        <div class="pdf-container" style="width: 100%; height: calc(100vh - 200px); max-width: 1200px; margin: 0 auto;">
+          <embed src="청파_포트폴리오.pdf" type="application/pdf" width="100%" height="100%" style="border-radius: 8px" />
+        </div>
+        <div class="pdf-mobile-notice">
+          <p>PDF를 보려면 아래 버튼을 눌러주세요</p>
+          <a href="청파_포트폴리오.pdf" target="_blank">PDF 열기</a>
         </div>
       </div>
     </div>
@@ -1479,8 +1576,12 @@
           <span class="modal-category">Education Consulting · Program Management</span>
           <h2 class="modal-title">전국 단위 교육 컨설팅 프로그램 기획 및 현장 총괄 운영</h2>
         </div>
-        <div style="width: 100%; height: calc(100vh - 200px); max-width: 1200px; margin: 0 auto;">
+        <div class="pdf-container" style="width: 100%; height: calc(100vh - 200px); max-width: 1200px; margin: 0 auto;">
           <embed src="전국_단위_교육_컨설팅_프로그램.pdf" type="application/pdf" width="100%" height="100%" style="border-radius: 8px" />
+        </div>
+        <div class="pdf-mobile-notice">
+          <p>PDF를 보려면 아래 버튼을 눌러주세요</p>
+          <a href="전국_단위_교육_컨설팅_프로그램.pdf" target="_blank">PDF 열기</a>
         </div>
       </div>
     </div>
@@ -1489,8 +1590,12 @@
       <div class="section-header">
         <span class="section-title">About Me</span>
       </div>
-      <div style="width: 100%; height: 80vh; max-width: 1200px; margin: 0 auto;">
+      <div class="pdf-container" style="width: 100%; height: 80vh; max-width: 1200px; margin: 0 auto;">
         <embed src="이영은_소개.pdf" type="application/pdf" width="100%" height="100%" style="border-radius: 8px" />
+      </div>
+      <div class="pdf-mobile-notice">
+        <p>PDF를 보려면 아래 버튼을 눌러주세요</p>
+        <a href="이영은_소개.pdf" target="_blank">PDF 열기</a>
       </div>
     </section>
 
