@@ -1,0 +1,1505 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Yeong Eun - Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: #0a0a0a;
+      color: #fff;
+      line-height: 1.5;
+    }
+
+    body.modal-open {
+      overflow: hidden;
+    }
+
+    /* Header */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 24px 40px;
+      z-index: 1000;
+    }
+
+    header.scrolled {
+      background: rgba(245, 240, 232, 0.95);
+      backdrop-filter: blur(10px);
+    }
+
+    header.dark {
+      background: rgba(10, 10, 10, 0.95);
+    }
+
+    .logo {
+      position: absolute;
+      left: 40px;
+      font-size: 32px;
+      font-weight: 400;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #2952a3;
+    }
+
+    header.dark .logo,
+    header.dark nav a {
+      color: #fff;
+    }
+
+    nav {
+      display: flex;
+      gap: 60px;
+    }
+
+    nav a {
+      font-size: 32px;
+      font-weight: 400;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #2952a3;
+      text-decoration: none;
+      transition: opacity 0.3s ease;
+    }
+
+    nav a:hover {
+      opacity: 0.5;
+    }
+
+    /* Hero */
+    .hero {
+      min-height: 100vh;
+      position: relative;
+      overflow: visible;
+      background-color: #f5f0e8;
+      padding: 100px 40px 60px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 40px;
+    }
+
+    .hero-title {
+      font-size: clamp(80px, 18vw, 280px);
+      font-weight: 400;
+      color: #2952a3;
+      letter-spacing: -0.02em;
+      line-height: 0.85;
+      text-transform: uppercase;
+      text-align: center;
+      position: absolute;
+      top: 55%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 3;
+      white-space: nowrap;
+    }
+
+    .hero-image-container {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 35%;
+      max-width: 450px;
+      z-index: 1;
+    }
+
+    .hero-image {
+      width: 100%;
+      height: auto;
+      display: block;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+    }
+
+    .hero-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      position: absolute;
+      bottom: 40px;
+      left: 40px;
+      right: 40px;
+      z-index: 3;
+    }
+
+    .hero-tagline {
+      font-size: clamp(20px, 2.8vw, 36px);
+      font-weight: 400;
+      color: #2952a3;
+      line-height: 1.3;
+      text-transform: uppercase;
+    }
+
+    .hero-featured {
+      text-align: right;
+      max-width: 450px;
+    }
+
+    .hero-featured-text {
+      font-size: clamp(16px, 2vw, 28px);
+      font-weight: 400;
+      color: #2952a3;
+      line-height: 1.4;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+
+    .hero-arrow {
+      font-size: 36px;
+      color: #2952a3;
+      display: inline-block;
+      transition: transform 0.3s ease;
+      cursor: pointer;
+      text-decoration: none;
+    }
+
+    .hero-arrow:hover {
+      transform: translateX(8px);
+    }
+
+    /* Section Common */
+    section {
+      padding: 120px 40px;
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 60px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid #333;
+    }
+
+    .section-title {
+      font-size: 11px;
+      font-weight: 400;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: #888;
+    }
+
+    .section-count {
+      font-size: 11px;
+      color: #666;
+    }
+
+    /* Work Grid */
+    .work-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      background: #1a1a1a;
+      padding: 20px;
+      border-radius: 16px;
+    }
+
+    .work-row {
+      display: flex;
+      gap: 12px;
+      width: 100%;
+      height: 380px;
+    }
+
+    .work-row.tall {
+      height: 520px;
+    }
+
+    .work-row.short {
+      height: 300px;
+    }
+
+    .work-item {
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+      border-radius: 12px;
+      background: #2a2a2a;
+      flex: 1;
+      height: 100%;
+      border: 1px solid #333;
+      transition: border-color 0.3s ease;
+    }
+
+    .work-item:hover {
+      border-color: #555;
+    }
+
+    .work-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+      transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    /* 작은 이미지용 - 최대 크기 제한 */
+    .work-item.small-img img {
+      object-fit: scale-down;
+      padding: 20px;
+    }
+
+    /* 특정 비율 지정 */
+    .work-item.w2 { flex: 2; }
+    .work-item.w3 { flex: 3; }
+
+    .work-item:hover img {
+      transform: scale(1.05);
+    }
+
+    .work-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 24px;
+      transition: background 0.5s ease;
+    }
+
+    .work-item:hover .work-overlay {
+      background: rgba(0, 0, 0, 0.6);
+    }
+
+    .work-info {
+      transform: translateY(30px);
+      opacity: 0;
+      transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    .work-item:hover .work-info {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    .work-category {
+      font-size: 10px;
+      font-weight: 400;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.7);
+      margin-bottom: 8px;
+    }
+
+    .work-title {
+      font-size: 24px;
+      font-weight: 300;
+      color: #fff;
+      margin-bottom: 8px;
+    }
+
+    .work-date {
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.5);
+    }
+
+    /* Modal */
+    .modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 2000;
+      background: rgba(0, 0, 0, 0.95);
+      overflow-y: auto;
+    }
+
+    .modal.active {
+      display: block;
+      animation: fadeIn 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .modal-close {
+      position: fixed;
+      top: 30px;
+      right: 40px;
+      width: 40px;
+      height: 40px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      z-index: 2001;
+    }
+
+    .modal-close::before,
+    .modal-close::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 24px;
+      height: 1px;
+      background: #fff;
+    }
+
+    .modal-close::before {
+      transform: translate(-50%, -50%) rotate(45deg);
+    }
+
+    .modal-close::after {
+      transform: translate(-50%, -50%) rotate(-45deg);
+    }
+
+    .modal-close:hover::before,
+    .modal-close:hover::after {
+      background: #888;
+    }
+
+    .modal-content {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 100px 40px;
+    }
+
+    .modal-header {
+      margin-bottom: 60px;
+    }
+
+    .modal-category {
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: #888;
+      margin-bottom: 16px;
+    }
+
+    .modal-title {
+      font-size: clamp(32px, 5vw, 48px);
+      font-weight: 300;
+      line-height: 1.2;
+      margin-bottom: 24px;
+    }
+
+    .modal-meta {
+      display: flex;
+      gap: 40px;
+      padding-top: 24px;
+      border-top: 1px solid #333;
+    }
+
+    .modal-meta-item {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .modal-meta-label {
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #666;
+    }
+
+    .modal-meta-value {
+      font-size: 14px;
+      color: #fff;
+    }
+
+    .modal-image {
+      width: 100%;
+      margin-bottom: 60px;
+      background: #111;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .modal-image img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .modal-image.contain {
+      display: flex;
+      justify-content: center;
+      padding: 40px;
+    }
+
+    .modal-image.contain img {
+      width: auto;
+      max-width: 100%;
+      max-height: 500px;
+      object-fit: contain;
+    }
+
+    .modal-image.small {
+      max-width: 500px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .modal-description {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 60px;
+      margin-bottom: 60px;
+    }
+
+    .modal-description h3 {
+      font-size: 12px;
+      font-weight: 400;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #888;
+    }
+
+    .modal-description p {
+      font-size: 16px;
+      font-weight: 300;
+      line-height: 1.8;
+      color: #ccc;
+    }
+
+    .modal-gallery {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+      margin-bottom: 60px;
+    }
+
+    .modal-gallery.single {
+      grid-template-columns: 1fr;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .modal-gallery img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 8px;
+      background: #111;
+    }
+
+    .modal-gallery.contain img {
+      object-fit: contain;
+      max-height: 400px;
+      width: auto;
+      margin: 0 auto;
+    }
+
+    /* About Section */
+    #me {
+      background: #0a0a0a;
+      padding: 160px 40px;
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+
+    .about-image {
+      aspect-ratio: 3/4;
+      background-size: cover;
+      background-position: center top;
+    }
+
+    .about-content {
+      max-width: 500px;
+    }
+
+    .about-intro {
+      font-size: 11px;
+      font-weight: 400;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: #888;
+      margin-bottom: 40px;
+    }
+
+    .about-title {
+      font-size: clamp(24px, 3vw, 36px);
+      font-weight: 300;
+      line-height: 1.5;
+      margin-bottom: 30px;
+      color: #fff;
+    }
+
+    .about-description {
+      font-size: 15px;
+      font-weight: 300;
+      line-height: 1.9;
+      color: #888;
+      margin-bottom: 50px;
+    }
+
+    .skills-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .skill {
+      font-size: 11px;
+      letter-spacing: 0.05em;
+      padding: 10px 18px;
+      border: 1px solid #333;
+      color: #888;
+      transition: all 0.3s ease;
+    }
+
+    .skill:hover {
+      border-color: #fff;
+      color: #fff;
+    }
+
+    /* Contact Section */
+    #contact {
+      background: #0a0a0a;
+      padding: 160px 40px;
+      border-top: 1px solid #222;
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+    }
+
+    .contact-title {
+      font-size: clamp(32px, 5vw, 56px);
+      font-weight: 300;
+      line-height: 1.2;
+      color: #fff;
+    }
+
+    .contact-details {
+      padding-top: 10px;
+    }
+
+    .contact-item {
+      margin-bottom: 30px;
+    }
+
+    .contact-label {
+      font-size: 10px;
+      font-weight: 400;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: #666;
+      margin-bottom: 8px;
+    }
+
+    .contact-value {
+      font-size: 18px;
+      font-weight: 300;
+    }
+
+    .contact-value a {
+      color: #fff;
+      text-decoration: none;
+      transition: opacity 0.3s ease;
+    }
+
+    .contact-value a:hover {
+      opacity: 0.5;
+    }
+
+    /* Footer */
+    footer {
+      padding: 40px;
+      border-top: 1px solid #222;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer-text {
+      font-size: 11px;
+      color: #666;
+      letter-spacing: 0.05em;
+    }
+
+    /* Responsive */
+    @media (max-width: 1024px) {
+      .hero {
+        padding: 100px 30px 40px;
+      }
+
+      .hero-title {
+        font-size: 18vw;
+        top: 50%;
+      }
+
+      .hero-image-container {
+        width: 45%;
+        max-width: 380px;
+      }
+
+      .hero-bottom {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 30px;
+      }
+
+      .hero-featured {
+        text-align: left;
+      }
+
+      .about-grid {
+        grid-template-columns: 1fr;
+        gap: 60px;
+      }
+
+      .about-image {
+        max-width: 400px;
+      }
+
+      .modal-description {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+
+      .modal-gallery {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 768px) {
+      header {
+        padding: 20px 24px;
+      }
+
+      .logo {
+        left: 24px;
+      }
+
+      nav {
+        gap: 20px;
+      }
+
+      .logo, nav a {
+        font-size: 20px;
+      }
+
+      section {
+        padding: 80px 24px;
+      }
+
+      #me, #contact {
+        padding: 100px 24px;
+      }
+
+      .hero {
+        padding: 90px 24px 30px;
+        min-height: 100vh;
+      }
+
+      .hero-title {
+        font-size: 18vw;
+        top: 50%;
+      }
+
+      .hero-image-container {
+        width: 55%;
+        max-width: 260px;
+      }
+
+      .hero-tagline {
+        font-size: 18px;
+      }
+
+      .hero-featured-text {
+        font-size: 16px;
+      }
+
+      .contact-grid {
+        grid-template-columns: 1fr;
+        gap: 50px;
+      }
+
+      .work-title {
+        font-size: 14px;
+      }
+
+      .work-category {
+        font-size: 9px;
+      }
+
+      .work-overlay {
+        padding: 12px;
+      }
+
+      .work-row.triple {
+        flex-wrap: wrap;
+      }
+
+      .work-row.triple .work-item {
+        flex: 1 1 45%;
+      }
+
+      .modal-content {
+        padding: 80px 24px;
+      }
+
+      .modal-close {
+        top: 20px;
+        right: 24px;
+      }
+
+      .modal-meta {
+        flex-wrap: wrap;
+        gap: 24px;
+      }
+
+      footer {
+        flex-direction: column;
+        gap: 16px;
+        text-align: center;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero {
+        padding: 80px 20px 30px;
+        gap: 20px;
+      }
+
+      .hero-title {
+        font-size: 16vw;
+        top: 50%;
+      }
+
+      .hero-image-container {
+        width: 65%;
+        max-width: 220px;
+      }
+
+      .hero-bottom {
+        padding-top: 20px;
+      }
+
+      .hero-tagline {
+        font-size: 14px;
+      }
+
+      .hero-featured-text {
+        font-size: 12px;
+      }
+
+      .hero-arrow {
+        font-size: 28px;
+      }
+
+      .work-grid {
+        padding: 12px;
+        gap: 12px;
+      }
+
+      .work-row {
+        flex-direction: column;
+        height: auto;
+        gap: 12px;
+      }
+
+      .work-row.tall,
+      .work-row.short {
+        height: auto;
+      }
+
+      .work-item,
+      .work-item.w2,
+      .work-item.w3 {
+        flex: none;
+        width: 100%;
+        height: auto;
+      }
+
+      .work-item img {
+        height: auto;
+        object-fit: contain;
+        padding: 0;
+      }
+
+      .work-item.small-img img {
+        padding: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">About</div>
+    <nav>
+      <a href="#me">Me</a>
+      <a href="#work">Work</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <h1 class="hero-title">Yeong Eun</h1>
+    <div class="hero-image-container">
+      <img src="images/디자인-포트폴리오_p2_3.png" alt="Yeong Eun" class="hero-image">
+    </div>
+    <div class="hero-bottom">
+      <div class="hero-tagline">
+        Performance<br>
+        Marketer &<br>
+        Designer
+      </div>
+      <div class="hero-featured">
+        <div class="hero-featured-text">
+          Creating impactful<br>
+          marketing strategies<br>
+          & visual designs
+        </div>
+        <a href="#work" class="hero-arrow">→</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="work">
+    <div class="section-header">
+      <span class="section-title">Selected Works</span>
+      <span class="section-count">9 Projects</span>
+    </div>
+    <div class="work-grid">
+      <!-- Row 1: 인테리어 카드뉴스 (정사각형) -->
+      <div class="work-row">
+        <div class="work-item" onclick="openModal('modal1')">
+          <img src="images/디자인-포트폴리오_p5_6.png" alt="취향 인테리어 아이템 카드뉴스">
+          <div class="work-overlay">
+            <div class="work-info">
+              <span class="work-category">Photography</span>
+              <h3 class="work-title">취향 인테리어 아이템 카드뉴스</h3>
+              <span class="work-date">2022.08</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Row 2: 세로 이미지 3개 -->
+      <div class="work-row tall">
+        <div class="work-item" onclick="openModal('modal2')">
+          <img src="images/디자인-포트폴리오_p6_5.png" alt="SNS 카드뉴스 - 카페 음료">
+          <div class="work-overlay">
+            <div class="work-info">
+              <span class="work-category">Photography</span>
+              <h3 class="work-title">SNS 카드뉴스 - 카페 음료</h3>
+              <span class="work-date">2022.09</span>
+            </div>
+          </div>
+        </div>
+        <div class="work-item" onclick="openModal('modal3')">
+          <img src="images/디자인-포트폴리오_p7_4.png" alt="블랙프라이데이 프로모션">
+          <div class="work-overlay">
+            <div class="work-info">
+              <span class="work-category">Illustration</span>
+              <h3 class="work-title">블랙프라이데이 프로모션</h3>
+              <span class="work-date">2022.10</span>
+            </div>
+          </div>
+        </div>
+        <div class="work-item" onclick="openModal('modal4')">
+          <img src="images/디자인-포트폴리오_p8_4.png" alt="반려묘 방석 광고">
+          <div class="work-overlay">
+            <div class="work-info">
+              <span class="work-category">Graphic Design</span>
+              <h3 class="work-title">반려묘 방석 광고</h3>
+              <span class="work-date">2022.12</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Row 3: 2개 (세로 + 가로) -->
+      <div class="work-row tall">
+        <div class="work-item" onclick="openModal('modal5')">
+          <img src="images/디자인-포트폴리오_p5_7.png" alt="인테리어 아이템 SNS 광고">
+          <div class="work-overlay">
+            <div class="work-info">
+              <span class="work-category">UI Design</span>
+              <h3 class="work-title">인테리어 아이템 SNS 광고</h3>
+              <span class="work-date">2022.12</span>
+            </div>
+          </div>
+        </div>
+        <div class="work-item w3" onclick="openModal('modal6')">
+          <img src="images/GX_프로그램_오픈_프로젝트_(1)_p1_2.png" alt="GX 프로그램 오픈 프로젝트">
+          <div class="work-overlay">
+            <div class="work-info">
+              <span class="work-category">Open Project</span>
+              <h3 class="work-title">GX 프로그램 오픈 프로젝트</h3>
+              <span class="work-date">2021.12</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Row 4: 2개 -->
+      <div class="work-row short">
+        <div class="work-item" onclick="openModal('modal7')">
+          <img src="images/디지털_마케팅_사례_및_활용방법_(1)_p1_2.png" alt="디지털 마케팅 활용방법">
+          <div class="work-overlay">
+            <div class="work-info">
+              <span class="work-category">Digital Marketing</span>
+              <h3 class="work-title">디지털 마케팅 활용방법</h3>
+              <span class="work-date">2022.05</span>
+            </div>
+          </div>
+        </div>
+        <div class="work-item w3" onclick="openModal('modal8')">
+          <img src="images/현대고등학교__국토순례단_(1)_p1_1.png" alt="현대고등학교 국토순례단">
+          <div class="work-overlay">
+            <div class="work-info">
+              <span class="work-category">School Event</span>
+              <h3 class="work-title">현대고등학교 국토순례단</h3>
+              <span class="work-date">2024.03</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Row 5: 엑셀 (가로로 넓은 이미지) -->
+      <div class="work-row short">
+        <div class="work-item" onclick="openModal('modal9')">
+          <img src="images/현대고등학교__국토순례단_(1)_p2_1.png" alt="엑셀 및 LMS 활용">
+          <div class="work-overlay">
+            <div class="work-info">
+              <span class="work-category">LMS & Tools</span>
+              <h3 class="work-title">엑셀 및 LMS 활용</h3>
+              <span class="work-date">2023.03</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Modal 1: 취향 인테리어 -->
+  <div class="modal" id="modal1">
+    <button class="modal-close" onclick="closeModal('modal1')"></button>
+    <div class="modal-content">
+      <div class="modal-header">
+        <span class="modal-category">Photography · Card News</span>
+        <h2 class="modal-title">취향 인테리어 아이템 카드뉴스</h2>
+        <div class="modal-meta">
+          <div class="modal-meta-item">
+            <span class="modal-meta-label">Client</span>
+            <span class="modal-meta-value">라이프스타일 소품 편집샵</span>
+          </div>
+          <div class="modal-meta-item">
+            <span class="modal-meta-label">Date</span>
+            <span class="modal-meta-value">2022년 8월</span>
+          </div>
+          <div class="modal-meta-item">
+            <span class="modal-meta-label">Tool</span>
+            <span class="modal-meta-value">Photoshop</span>
+          </div>
+          <div class="modal-meta-item">
+            <span class="modal-meta-label">Target</span>
+            <span class="modal-meta-value">MZ세대 인테리어 관심층</span>
+          </div>
+        </div>
+      </div>
+      <div class="modal-image">
+        <img src="images/디자인-포트폴리오_p5_6.png" alt="취향 인테리어 아이템 카드뉴스">
+      </div>
+      <div class="modal-description">
+        <h3>Overview</h3>
+        <p>MZ세대가 선호하는 '레트로 감성'을 테마로 제작한 카드뉴스 광고입니다. 타겟 고객이 공감할 수 있는 키워드와 이미지를 활용해 브랜드 인지도와 SNS 참여율을 높이는 것에 목적을 두었습니다.</p>
+      </div>
+      <div class="modal-description">
+        <h3>Key Message</h3>
+        <p>"돈 쏟아부을 거 아니면, 인테리어는 무조건 정보싸움"이라는 카피로 타겟층의 공감을 이끌어내고, 크리스마스 컨셉 인테리어 전/후 비교 이미지로 제품의 효과를 직관적으로 보여주었습니다.</p>
+      </div>
+      <div class="modal-gallery">
+        <img src="images/디자인-포트폴리오_p5_5.png" alt="내 취향 인테리어템 찾는 법">
+        <img src="images/디자인-포트폴리오_p5_6.png" alt="인테리어 전후 비교">
+      </div>
+      <div class="modal-description">
+        <h3>Design Elements</h3>
+        <p>• 10만원대 고전 오락기, 귀여운 헬멧, 일본 보온기 등 레트로 아이템 소개<br>• 93년 고전만화 전집 등 빈티지 감성 큐레이션<br>• 같은공간, 인테리어 전/후 비교로 변화 시각화<br>• 크리스마스 컨셉 인테리어로 시즌 마케팅 연계</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal 2: 카페 음료 -->
+  <div class="modal" id="modal2">
+    <button class="modal-close" onclick="closeModal('modal2')"></button>
+    <div class="modal-content">
+      <div class="modal-header">
+        <span class="modal-category">Photography · SNS Marketing</span>
+        <h2 class="modal-title">SNS 카드뉴스 - 카페 음료 광고</h2>
+        <div class="modal-meta">
+          <div class="modal-meta-item">
+            <span class="modal-meta-label">Client</span>
+            <span class="modal-meta-value">김 성진 쇼핑몰</span>
+          </div>
+          <div class="modal-meta-item">
+            <span class="modal-meta-label">Date</span>
+            <span class="modal-meta-value">2022년 9월</span>
+          </div>
+          <div class="modal-meta-item">
+            <span class="modal-meta-label">Tool</span>
+            <span class="modal-meta-value">Miri Camera 123</span>
+          </div>
+          <div class="modal-meta-item">
+            <span class="modal-meta-label">Target</span>
+            <span class="modal-meta-value">민초 마니아층</span>
+          </div>
+        </div>
+      </div>
+      <div class="modal-image">
+        <img src="images/디자인-포트폴리오_p6_5.png" alt="카페 음료 광고">
+      </div>
+      <div class="modal-description">
+        <h3>Overview</h3>
+        <p>위트 있는 카피와 원재료 강조로 민초 마니아층을 공략한 음료 프로모션 광고입니다. 신규 고객 유입을 위해 제작한 카드뉴스 시리즈로 제품 특성을 직관적으로 보여주고, 클릭 유도형 카피라이팅을 적용하여 광고 전환율을 높였습니다.</p>
+      </div>
+      <div class="modal-description">
+        <h3>Key Copy</h3>
+        <p>• "루비쨩이 좋아하는 민초 쉐이크!" - 캐릭터 활용으로 친근감 형성<br>• "초코민트 보다도 아·나·타" - 재치있는 언어유희로 주목도 상승<br>• "국내산 페퍼민트 사용!" - 프리미엄 원재료 강조로 신뢰도 구축</p>
+      </div>
+      <div class="modal-description">
+        <h3>Design Strategy</h3>
+        <p>• 민트 컬러 배경으로 제품 컨셉 시각화<br>• 고품질 제품 이미지로 식욕 자극<br>• 초콜릿, 민트 잎 등 원재료 이미지 배치<br>• 깔끔한 타이포그래피로 가독성 확보</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal 3: 블랙프라이데이 -->
+  <div class="modal" id="modal3">
+    <button class="modal-close" onclick="closeModal('modal3')"></button>
+    <div class="modal-content">
+      <div class="modal-header">
+        <span class="modal-category">Illustration · Promotion</span>
+        <h2 class="modal-title">블랙프라이데이 세일 프로모션</h2>
+        <div class="modal-meta">
+          <div class="modal-meta-item">
+            <span class="modal-meta-label">Client</span>
+            <span class="modal-meta-value">온라인 패션몰</span>
+          </div>
+          <div class="modal-meta-item">
+            <span class="modal-meta-label">Date</span>
+            <span class="modal-meta-value">2022년 10월</span>
+          </div>
+          <div class="modal-meta-item">
+            <span class="modal-meta-label">Tool</span>
+            <span class="modal-meta-value">Illustration</span>
+          </div>
+          <div class="modal-meta-item">
+            <span class="modal-meta-label">Duration</span>
+            <span class="modal-meta-value">72시간 한정</span>
+          </div>
+        </div>
+      </div>
+      <div class="modal-image">
+        <img src="images/디자인-포트폴리오_p7_4.png" alt="블랙프라이데이 프로모션">
+      </div>
+      <div class="modal-description">
+        <h3>Campaign Goal</h3>
+        <p>시선을 사로잡는 디자인과 명확한 혜택 제시로 전환율을 높이는 것이 목적이었습니다. 명확한 행동 유도 버튼(CTA)인 "상품 만나러 가기"를 삽입해 즉각적인 클릭을 유도했습니다.</p>
+      </div>
+      <div class="modal-description">
+        <h3>Key Elements</h3>
+        <p>• <strong>72H</strong> - 72시간 한정 세일로 긴급성 강조<br>• <strong>BLACK FRIDAY</strong> - 블랙프라이데이 이벤트 명시<br>• <strong>UP TO 85%</strong> - 최대 할인율을 3D 타이포그래피로 임팩트있게 표현<br>• <strong>금토일</strong> - 세일 기간을 한글로 명확하게 안내<br>• <strong>상품 만나러 가기 >>></strong> - 핑크 컬러 CTA 버튼으로 행동 유도</p>
+      </div>
+      <div class="modal-description">
+        <h3>Design Strategy</h3>
+        <p>• 블랙 배경으로 블랙프라이데이 컨셉 강조<br>• 핑크 3D 숫자로 할인율 시각적 강조<br>• 미니멀한 레이아웃으로 핵심 메시지 집중<br>• 대비되는 핑크 CTA 버튼으로 클릭 유도</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal 4: 반려묘 방석 -->
+  <div class="modal" id="modal4">
+    <button class="modal-close" onclick="closeModal('modal4')"></button>
+    <div class="modal-content">
+      <div class="modal-header">
+        <span class="modal-category">Graphic Design · Product Ad</span>
+        <h2 class="modal-title">반려묘 방석 광고 소재</h2>
+        <div class="modal-meta">
+          <div class="modal-meta-item">
+            <span class="modal-meta-label">Client</span>
+            <span class="modal-meta-value">펫 용품 브랜드</span>
+          </div>
+          <div class="modal-meta-item">
+            <span class="modal-meta-label">Date</span>
+            <span class="modal-meta-value">2022년 12월</span>
+          </div>
+          <div class="modal-meta-item">
+            <span class="modal-meta-label">Tool</span>
+            <span class="modal-meta-value">Illustrator</span>
+          </div>
+          <div class="modal-meta-item">
+            <span class="modal-meta-label">Target</span>
+            <span class="modal-meta-value">고양이 집사</span>
+          </div>
+        </div>
+      </div>
+      <div class="modal-image">
+        <img src="images/디자인-포트폴리오_p8_4.png" alt="반려묘 방석 광고">
+      </div>
+      <div class="modal-description">
+        <h3>Campaign Goal</h3>
+        <p>고양이 집사들의 공감을 자극해 클릭 및 구매 전환율 상승을 목표로 한 콘텐츠입니다. 따뜻한 색감과 미니멀한 공간 배경을 활용해 제품이 실제 생활 속에 자연스럽게 녹아드는 모습을 연출했습니다.</p>
+      </div>
+      <div class="modal-description">
+        <h3>Key Copy</h3>
+        <p><strong>"골골송을 부르는 마성의 마약방석"</strong><br><br>고양이가 편안할 때 내는 '골골송' 소리를 활용한 감성적인 카피로, 제품의 편안함을 직관적으로 전달합니다. '마약방석'이라는 표현으로 한 번 사용하면 빠져나올 수 없는 중독성을 강조했습니다.</p>
+      </div>
+      <div class="modal-description">
+        <h3>Visual Strategy</h3>
+        <p>• 실제 고양이가 방석에서 편안하게 쉬는 이미지로 제품 신뢰도 확보<br>• 밝고 깨끗한 인테리어 배경으로 라이프스타일 연출<br>• 식물 소품 배치로 자연스럽고 따뜻한 분위기 조성<br>• 베이지/크림 톤 방석으로 어떤 인테리어에도 어울리는 느낌 전달</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal 5: 인테리어 SNS -->
+  <div class="modal" id="modal5">
+    <button class="modal-close" onclick="closeModal('modal5')"></button>
+    <div class="modal-content">
+      <div class="modal-header">
+        <span class="modal-category">UI Design · SNS Ad</span>
+        <h2 class="modal-title">인테리어 아이템 SNS 광고</h2>
+        <div class="modal-meta">
+          <div class="modal-meta-item">
+            <span class="modal-meta-label">Client</span>
+            <span class="modal-meta-value">온라인 홈데코 플랫폼</span>
+          </div>
+          <div class="modal-meta-item">
+            <span class="modal-meta-label">Date</span>
+            <span class="modal-meta-value">2022년 12월</span>
+          </div>
+          <div class="modal-meta-item">
+            <span class="modal-meta-label">Tool</span>
+            <span class="modal-meta-value">Miri Canvas</span>
+          </div>
+          <div class="modal-meta-item">
+            <span class="modal-meta-label">Platform</span>
+            <span class="modal-meta-value">와디즈</span>
+          </div>
+        </div>
+      </div>
+      <div class="modal-image">
+        <img src="images/디자인-포트폴리오_p5_7.png" alt="인테리어 SNS 광고">
+      </div>
+      <div class="modal-description">
+        <h3>UX Strategy</h3>
+        <p>핵심 인테리어 아이템에 클릭형 태그(+) 아이콘을 배치하여 사용자가 상품 정보를 직관적으로 확인할 수 있도록 설계했습니다. 단순한 노출을 넘어 실제 구매 전환으로 이어질 수 있는 UX 기반 광고 전략을 보여줍니다.</p>
+      </div>
+      <div class="modal-description">
+        <h3>Key Copy</h3>
+        <p>• <strong>"태어났을 때부터 미감 있는 사람인척"</strong> - 누구나 공감할 수 있는 위트있는 도입부<br>• <strong>"내 예산으로도 완전 가능"</strong> - 가격 부담을 낮추는 메시지<br>• <strong>"지금 바로 와디즈에서 확인해보세요 >>"</strong> - 명확한 CTA로 즉각적인 행동 유도</p>
+      </div>
+      <div class="modal-description">
+        <h3>Design Elements</h3>
+        <p>• 돈다발 3D 일러스트로 '예산' 개념 시각화<br>• 다크 배경으로 텍스트 가독성 확보<br>• 레드 컬러 CTA 버튼으로 주목도 상승<br>• 미니멀한 레이아웃으로 메시지 집중</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal 6: GX 프로그램 -->
+  <div class="modal" id="modal6">
+    <button class="modal-close" onclick="closeModal('modal6')"></button>
+    <div class="modal-content">
+      <div class="modal-header">
+        <span class="modal-category">Open Project · Planning</span>
+        <h2 class="modal-title">GX 프로그램 오픈 프로젝트</h2>
+        <div class="modal-meta">
+          <div class="modal-meta-item">
+            <span class="modal-meta-label">Type</span>
+            <span class="modal-meta-value">Open Project</span>
+          </div>
+          <div class="modal-meta-item">
+            <span class="modal-meta-label">Date</span>
+            <span class="modal-meta-value">2021년 12월</span>
+          </div>
+          <div class="modal-meta-item">
+            <span class="modal-meta-label">Role</span>
+            <span class="modal-meta-value">기획 및 실행 총괄</span>
+          </div>
+        </div>
+      </div>
+      <div class="modal-image">
+        <img src="images/GX_프로그램_오픈_프로젝트_(1)_p1_2.png" alt="GX 프로그램">
+      </div>
+      <div class="modal-description">
+        <h3>Overview</h3>
+        <p>센터에 GX 프로그램 오픈을 위해 지역 고객 선호도 분석 및 강사 교육과 메뉴얼 제작으로 수업의 질을 확보하였습니다. 신규 프로그램 런칭을 위해 시장 조사부터 강사 트레이닝, 운영 매뉴얼 작성까지 전 과정을 기획하고 실행했습니다.</p>
+      </div>
+      <div class="modal-image contain">
+        <img src="images/GX_프로그램_오픈_프로젝트_(1)_p1_2.png" alt="2022 Open Project">
+      </div>
+      <div class="modal-description">
+        <h3>Project Details</h3>
+        <p>• 지역 고객 선호도 분석을 통한 프로그램 기획<br>• 강사 교육 프로그램 개발 및 운영<br>• GX 수업 운영 매뉴얼 제작<br>• 수업의 질 확보를 위한 체계적 시스템 구축<br>• 성공적인 프로그램 오픈 및 운영</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal 7: 디지털 마케팅 -->
+  <div class="modal" id="modal7">
+    <button class="modal-close" onclick="closeModal('modal7')"></button>
+    <div class="modal-content">
+      <div class="modal-header">
+        <span class="modal-category">Digital Marketing · Strategy</span>
+        <h2 class="modal-title">디지털 마케팅 사례 및 활용방법</h2>
+        <div class="modal-meta">
+          <div class="modal-meta-item">
+            <span class="modal-meta-label">Company</span>
+            <span class="modal-meta-value">프리스티지 오앤 요가</span>
+          </div>
+          <div class="modal-meta-item">
+            <span class="modal-meta-label">Date</span>
+            <span class="modal-meta-value">2022년 5월 - 6월</span>
+          </div>
+          <div class="modal-meta-item">
+            <span class="modal-meta-label">Role</span>
+            <span class="modal-meta-value">마케팅 전략 기획</span>
+          </div>
+        </div>
+      </div>
+      <div class="modal-image">
+        <img src="images/디지털_마케팅_사례_및_활용방법_(1)_p1_2.png" alt="디지털 마케팅">
+      </div>
+      <div class="modal-description">
+        <h3>Background</h3>
+        <p>프리스티지 오앤 요가 근무 당시 고객의 마음을 사로잡을 수 있는 마케팅 방법이 무엇이 있을지 고민하였고, 해답으로 온라인 마케팅을 활용하여 고객의 유입부터 오프라인 피트니스 공간의 결제, 예약, 수업, 운영까지 물리적 한계를 극복하기 위한 프로젝트를 계획하였습니다.</p>
+      </div>
+      <div class="modal-gallery single contain">
+        <img src="images/디지털_마케팅_사례_및_활용방법_(1)_p1_2.png" alt="Best Provider">
+      </div>
+      <div class="modal-description">
+        <h3>Strategy</h3>
+        <p>• 온/오프라인 통합 마케팅 전략 수립<br>• 고객 여정(Customer Journey) 전반에 걸친 디지털 터치포인트 설계<br>• 온라인 예약 및 결제 시스템 도입으로 편의성 향상<br>• SNS 마케팅을 통한 신규 고객 유입 확대<br>• 데이터 기반 마케팅 성과 분석 및 개선</p>
+      </div>
+      <div class="modal-description">
+        <h3>Results</h3>
+        <p>물리적 한계를 극복하고 고객 유입부터 결제, 예약, 수업 운영까지 전 과정의 디지털화를 통해 비즈니스 성장에 기여했습니다. Best Provider로서의 가치를 디지털 채널을 통해 효과적으로 전달했습니다.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal 8: 국토순례단 -->
+  <div class="modal" id="modal8">
+    <button class="modal-close" onclick="closeModal('modal8')"></button>
+    <div class="modal-content">
+      <div class="modal-header">
+        <span class="modal-category">School Event · Project Management</span>
+        <h2 class="modal-title">현대고등학교 국토순례단</h2>
+        <div class="modal-meta">
+          <div class="modal-meta-item">
+            <span class="modal-meta-label">Type</span>
+            <span class="modal-meta-value">학교행사</span>
+          </div>
+          <div class="modal-meta-item">
+            <span class="modal-meta-label">Date</span>
+            <span class="modal-meta-value">2024년 3월 - 7월</span>
+          </div>
+          <div class="modal-meta-item">
+            <span class="modal-meta-label">Duration</span>
+            <span class="modal-meta-value">3박 4일</span>
+          </div>
+          <div class="modal-meta-item">
+            <span class="modal-meta-label">Role</span>
+            <span class="modal-meta-value">담당 교사 / 기획 총괄</span>
+          </div>
+        </div>
+      </div>
+      <div class="modal-image">
+        <img src="images/현대고등학교__국토순례단_(1)_p1_1.png" alt="국토순례단">
+      </div>
+      <div class="modal-description">
+        <h3>Overview</h3>
+        <p>여름방학 중 신청한 학생들과 1학년 담임, 국토순례단 담당 교사가 3박4일 동안 진행되는 국토순례의 일정부터 OT, 학부모 상담, 온라인 활용까지 전 과정을 기획하고 진행하였습니다.</p>
+      </div>
+      <div class="modal-gallery">
+        <img src="images/현대고등학교__국토순례단_(1)_p1_1.png" alt="국토순례단 단체사진">
+        <img src="images/현대고등학교__국토순례단_(1)_p2_2.png" alt="국토순례단 인스타그램">
+      </div>
+      <div class="modal-description">
+        <h3>Project Management</h3>
+        <p>• W.B.S(Work Breakdown Structure)를 이용한 국토순례 계획 수립<br>• 목표 설립, 진척도 관리, 셀프 피드백 추진<br>• 구글시트를 활용한 예산서 작성 및 담당자 공유<br>• 학부모를 위한 인스타 생방송 진행<br>• 아카이빙 후 게시물 업로드</p>
+      </div>
+      <div class="modal-image">
+        <img src="images/현대고등학교__국토순례단_(1)_p2_1.png" alt="예산표">
+      </div>
+      <div class="modal-description">
+        <h3>Budget Management</h3>
+        <p>구글시트를 활용하여 상세 예산서를 작성했습니다. 인건비(리더/가이드, 도우미/보조가이드, 행사기획자), 직접비(교육프로그램 강사, 문화체험 강사, 현지 가이드, 안전요원), 간접비(국토순례 장소 대관, 다과 및 간식, 콘텐츠 및 미술재료, 숙소비, 현장 촬영, 비상용품 및 기타, 식사비, 기념품) 등 총 예산 ₩51,853,500을 체계적으로 관리했습니다.</p>
+      </div>
+      <div class="modal-description">
+        <h3>Online Communication</h3>
+        <p>@hyundai_hs_ktsr 인스타그램 계정을 운영하여 국토순례에 참여한 학생들의 안부를 궁금해하는 학부모를 위한 소통 창구를 마련했습니다. 601명의 팔로워를 확보하고, 제주도 국토순례부터 24차 국토순례까지 다양한 활동을 기록하고 공유했습니다.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal 9: 엑셀 및 LMS -->
+  <div class="modal" id="modal9">
+    <button class="modal-close" onclick="closeModal('modal9')"></button>
+    <div class="modal-content">
+      <div class="modal-header">
+        <span class="modal-category">LMS & Tools · Education</span>
+        <h2 class="modal-title">엑셀 및 LMS 활용</h2>
+        <div class="modal-meta">
+          <div class="modal-meta-item">
+            <span class="modal-meta-label">Tools</span>
+            <span class="modal-meta-value">Excel, LMS, 나이스</span>
+          </div>
+          <div class="modal-meta-item">
+            <span class="modal-meta-label">Platform</span>
+            <span class="modal-meta-value">리로스쿨</span>
+          </div>
+          <div class="modal-meta-item">
+            <span class="modal-meta-label">Date</span>
+            <span class="modal-meta-value">2023년 3월 - 2024년 12월</span>
+          </div>
+        </div>
+      </div>
+      <div class="modal-image">
+        <img src="images/현대고등학교__국토순례단_(1)_p2_1.png" alt="엑셀 예산표 작성">
+      </div>
+      <div class="modal-description">
+        <h3>Excel 활용</h3>
+        <p>효율적인 수행평가 작성을 위해 엑셀 함수를 활용하여 리소스를 확보하였습니다. 디스크 골프 점수 기록지 등 수행평가용 엑셀 양식을 직접 개발하여 효율적인 학생 평가 시스템을 구축했습니다.</p>
+      </div>
+      <div class="modal-description">
+        <h3>LMS 활용 - 리로스쿨</h3>
+        <p>교내 자체 LMS인 리로스쿨을 이용하여 다양한 교육 활동을 진행했습니다:<br>• 출석 관리 및 체크<br>• 과제 제출 및 평가<br>• 학습 자료 공유<br>• 학생-교사 간 커뮤니케이션</p>
+      </div>
+      <div class="modal-description">
+        <h3>나이스(NEIS) 활용</h3>
+        <p>교육행정정보시스템인 나이스를 활용하여 다음 업무들을 처리하였습니다:<br>• 성적 입력 및 관리<br>• 출결 관리<br>• 생활기록부 작성<br>• 각종 행정 업무 처리</p>
+      </div>
+      <div class="modal-description">
+        <h3>성과</h3>
+        <p>디지털 도구를 적극 활용하여 업무 효율성을 높이고, 학생 평가의 객관성과 일관성을 확보했습니다. 특히 엑셀 기반의 자동화된 평가 시스템을 통해 수행평가 채점 시간을 단축하고 오류를 최소화했습니다.</p>
+      </div>
+    </div>
+  </div>
+
+  <section id="me">
+    <div class="about-grid">
+      <div class="about-image" style="background-image: url('images/디자인-포트폴리오_p10_4.png');"></div>
+      <div class="about-content">
+        <span class="about-intro">About Me</span>
+        <h2 class="about-title">데이터 기반의 기획과 실행으로 광고 효과를 증명하는 퍼포먼스 마케터입니다.</h2>
+        <p class="about-description">
+          메타 광고 집행 과정에서 고객의 심리적 부담을 줄이고, 체계적인 시스템을 강조하며, 명확한 가치 제안으로 전환율을 높여왔습니다. 광고 소재 제작부터 픽셀 기반 세팅, 결과 분석까지 전 과정을 직접 수행하며 "작은 투자로 큰 성과"를 만드는 광고 전략을 입증했습니다.
+          <br><br>
+          프리스티지 오앤 요가에서 디지털 마케팅 전략을 수립하고, 현대고등학교에서 국토순례단 프로젝트를 기획·운영하며 다양한 분야에서 기획력과 실행력을 발휘해왔습니다. W.B.S를 활용한 체계적인 프로젝트 관리, 구글시트와 엑셀을 활용한 데이터 관리, SNS 마케팅을 통한 커뮤니케이션까지 폭넓은 역량을 보유하고 있습니다.
+        </p>
+        <div class="skills-list">
+          <span class="skill">Performance Marketing</span>
+          <span class="skill">Meta Ads</span>
+          <span class="skill">Graphic Design</span>
+          <span class="skill">Photoshop</span>
+          <span class="skill">Illustrator</span>
+          <span class="skill">Figma</span>
+          <span class="skill">Project Management</span>
+          <span class="skill">Excel / Google Sheets</span>
+          <span class="skill">LMS (리로스쿨)</span>
+          <span class="skill">NEIS (나이스)</span>
+          <span class="skill">SNS Marketing</span>
+          <span class="skill">Content Creation</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="contact-grid">
+      <h2 class="contact-title">Interested to<br>work together?</h2>
+      <div class="contact-details">
+        <div class="contact-item">
+          <div class="contact-label">Phone</div>
+          <div class="contact-value"><a href="tel:010-5652-4046">010-5652-4046</a></div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-label">Email</div>
+          <div class="contact-value"><a href="mailto:duddms2222@naver.com">duddms2222@naver.com</a></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <span class="footer-text">Yeong Eun Portfolio</span>
+    <span class="footer-text">2024</span>
+  </footer>
+
+  <script>
+    function openModal(modalId) {
+      document.getElementById(modalId).classList.add('active');
+      document.body.classList.add('modal-open');
+    }
+
+    function closeModal(modalId) {
+      document.getElementById(modalId).classList.remove('active');
+      document.body.classList.remove('modal-open');
+    }
+
+    // Close modal on escape key
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        document.querySelectorAll('.modal.active').forEach(modal => {
+          modal.classList.remove('active');
+        });
+        document.body.classList.remove('modal-open');
+      }
+    });
+
+    // Close modal on background click
+    document.querySelectorAll('.modal').forEach(modal => {
+      modal.addEventListener('click', function(e) {
+        if (e.target === modal) {
+          modal.classList.remove('active');
+          document.body.classList.remove('modal-open');
+        }
+      });
+    });
+
+    // Header scroll effect
+    const header = document.querySelector('header');
+    const hero = document.querySelector('.hero');
+
+    window.addEventListener('scroll', function() {
+      const heroBottom = hero.offsetTop + hero.offsetHeight;
+
+      if (window.scrollY > heroBottom - 100) {
+        header.classList.add('dark');
+        header.classList.add('scrolled');
+      } else if (window.scrollY > 50) {
+        header.classList.add('scrolled');
+        header.classList.remove('dark');
+      } else {
+        header.classList.remove('scrolled');
+        header.classList.remove('dark');
+      }
+    });
+  </script>
+</body>
+</html>
